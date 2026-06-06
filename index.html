@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kevin J. Wajdowicz — Quality Engineering Leader</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-primary:   #0d0d1a;
+      --bg-secondary: #12122a;
+      --bg-card:      #1a1a38;
+      --bg-card-hover:#1e1e42;
+      --accent:       #00d4c8;
+      --accent-dim:   #009e94;
+      --accent-glow:  rgba(0, 212, 200, 0.15);
+      --text-primary: #e8e8f4;
+      --text-secondary: #8888aa;
+      --border:       #2a2a50;
+      --timeline-dot: #00d4c8;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    /* ─── NAV ─────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(13, 13, 26, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-brand {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--accent); }
+
+    /* ─── HERO ────────────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 30%, rgba(0, 212, 200, 0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 20% 70%, rgba(0, 80, 180, 0.12) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero-content { position: relative; max-width: 800px; }
+
+    .hero-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 7vw, 4.5rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      color: #ffffff;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-title {
+      font-size: clamp(1.1rem, 3vw, 1.4rem);
+      font-weight: 300;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.02em;
+    }
+
+    .hero-tagline {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto 2.5rem;
+      font-weight: 300;
+    }
+
+    .hero-contact {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.65rem 1.4rem;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #0d0d1a;
+    }
+    .btn-primary:hover {
+      background: #00ece0;
+      box-shadow: 0 0 20px var(--accent-glow);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+    }
+    .btn-outline:hover {
+      background: var(--accent-glow);
+      box-shadow: 0 0 20px var(--accent-glow);
+      transform: translateY(-1px);
+    }
+
+    .hero-meta {
+      margin-top: 2rem;
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .hero-meta span {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .hero-meta .dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: inline-block;
+    }
+
+    /* ─── SECTIONS ────────────────────────────────────────── */
+    section {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    h2 {
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 2.5rem;
+      letter-spacing: -0.01em;
+    }
+
+    .section-divider {
+      width: 48px;
+      height: 3px;
+      background: var(--accent);
+      border-radius: 2px;
+      margin-bottom: 2.5rem;
+    }
+
+    /* ─── ABOUT ───────────────────────────────────────────── */
+    #about .about-text {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      max-width: 720px;
+      font-weight: 300;
+    }
+
+    #about .about-text strong {
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    /* ─── EXPERIENCE ──────────────────────────────────────── */
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 8px;
+      bottom: 8px;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+      opacity: 0.4;
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 3rem;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -2.45rem;
+      top: 8px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 8px var(--accent);
+    }
+
+    .job-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.75rem;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .job-card:hover {
+      border-color: var(--accent-dim);
+      background: var(--bg-card-hover);
+    }
+
+    .job-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.25rem;
+    }
+
+    .job-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    .job-dates {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--accent);
+      white-space: nowrap;
+      padding-top: 3px;
+    }
+
+    .job-company {
+      font-size: 0.9rem;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 0.15rem;
+    }
+
+    .job-location {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.75rem;
+    }
+
+    .job-description {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      font-style: italic;
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+
+    .job-sub {
+      margin-top: 1rem;
+    }
+
+    .job-sub-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .job-bullets {
+      list-style: none;
+      padding: 0;
+    }
+
+    .job-bullets li {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      padding: 0.2rem 0 0.2rem 1.2rem;
+      position: relative;
+      line-height: 1.6;
+    }
+
+    .job-bullets li::before {
+      content: '▸';
+      color: var(--accent);
+      position: absolute;
+      left: 0;
+      top: 0.2rem;
+      font-size: 0.7rem;
+    }
+
+    /* ─── SKILLS ──────────────────────────────────────────── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .skill-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      transition: border-color 0.2s;
+    }
+
+    .skill-card:hover { border-color: var(--accent-dim); }
+
+    .skill-category {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.75rem;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .tag {
+      background: rgba(0, 212, 200, 0.1);
+      color: var(--text-primary);
+      border: 1px solid rgba(0, 212, 200, 0.2);
+      border-radius: 4px;
+      padding: 0.2rem 0.6rem;
+      font-size: 0.78rem;
+      font-family: 'JetBrains Mono', monospace;
+      transition: background 0.2s;
+    }
+
+    .tag:hover {
+      background: rgba(0, 212, 200, 0.2);
+    }
+
+    /* ─── EDUCATION ───────────────────────────────────────── */
+    .edu-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.75rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .edu-degree {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    .edu-school {
+      font-size: 0.9rem;
+      color: var(--accent);
+      font-weight: 500;
+      margin-top: 0.2rem;
+    }
+
+    .edu-location {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-top: 0.15rem;
+    }
+
+    .edu-date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+
+    /* ─── VOLUNTEER ───────────────────────────────────────── */
+    .volunteer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+
+    .volunteer-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.1rem 1.4rem;
+      transition: border-color 0.2s;
+    }
+
+    .volunteer-card:hover { border-color: var(--accent-dim); }
+
+    .volunteer-org {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .volunteer-cause {
+      font-size: 0.78rem;
+      color: var(--accent);
+      margin-top: 0.2rem;
+    }
+
+    /* ─── FOOTER ──────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 2.5rem 2rem;
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    footer a:hover { text-decoration: underline; }
+
+    /* ─── RESPONSIVE ──────────────────────────────────────── */
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .job-header { flex-direction: column; gap: 0.25rem; }
+      .edu-card { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-brand" href="#hero">KJW</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#volunteer">Volunteer</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div id="hero">
+    <div class="hero-content">
+      <p class="hero-eyebrow">Quality Engineering Leader</p>
+      <h1>Kevin J. Wajdowicz</h1>
+      <p class="hero-title">Engineering Manager &amp; Software Quality Professional</p>
+      <p class="hero-tagline">
+        A force multiplier, thoughtful mentor, and low-key teammate — at my best in
+        hands-on environments where I can apply knowledge directly and elevate the team
+        through teaching and coaching.
+      </p>
+      <div class="hero-contact">
+        <a class="btn btn-primary" href="mailto:k.wajdowicz@gmail.com">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          k.wajdowicz@gmail.com
+        </a>
+        <a class="btn btn-outline" href="https://www.linkedin.com/in/kwajdowicz/" target="_blank" rel="noopener">
+          <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          LinkedIn
+        </a>
+      </div>
+      <div class="hero-meta">
+        <span><span class="dot"></span>Santa Cruz, CA</span>
+        <span><span class="dot"></span>831.278.2321</span>
+        <span><span class="dot"></span>20+ Years in Quality Engineering</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <p class="section-label">// about</p>
+    <h2>Who I Am</h2>
+    <div class="section-divider"></div>
+    <p class="about-text">
+      Engineering leader and software quality professional with a passion for
+      <strong>empowering engineers</strong>, seamless customer experience, and
+      obscure movie quotes. I build high-performing QA and release engineering teams
+      that ship with confidence — from automation frameworks and CI/CD pipelines to
+      cross-functional release coordination and customer-facing quality standards.
+      <br /><br />
+      I thrive in hands-on environments where I can both <strong>apply technical knowledge
+      directly</strong> and elevate the team through coaching and mentorship. Whether it's
+      architecting a test automation strategy from scratch or driving an org-wide quality
+      culture, I bring structure, empathy, and a bias for clarity.
+    </p>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <p class="section-label">// experience</p>
+    <h2>Work History</h2>
+    <div class="section-divider"></div>
+
+    <div class="timeline">
+
+      <!-- Lyra Health -->
+      <div class="timeline-item">
+        <div class="job-card">
+          <div class="job-header">
+            <div>
+              <div class="job-title">Staff Software Engineer</div>
+              <div class="job-company">Lyra Health</div>
+            </div>
+            <div class="job-dates">Oct 2023 – Present</div>
+          </div>
+          <p class="job-description">
+            Lyra Health is a leading mental health benefits platform helping employees and
+            their families access high-quality, personalized care through a network of
+            vetted providers and evidence-based solutions.
+          </p>
+        </div>
+      </div>
+
+      <!-- StackRox -->
+      <div class="timeline-item">
+        <div class="job-card">
+          <div class="job-header">
+            <div>
+              <div class="job-title">Engineering Manager</div>
+              <div class="job-company">StackRox (acquired by Red Hat)</div>
+              <div class="job-location">Mountain View, CA</div>
+            </div>
+            <div class="job-dates">Dec 2017 – Oct 2023</div>
+          </div>
+          <p class="job-description">
+            StackRox is a container security company offering a software platform to
+            secure cloud-native applications across the entire container lifecycle.
+          </p>
+          <div class="job-sub">
+            <div class="job-sub-title">Automation Testing</div>
+            <ul class="job-bullets">
+              <li>Built automation framework from ground up using Groovy and Spock to run full end-to-end test scenarios against any orchestrator</li>
+              <li>Incorporated automated tests into CI pipeline, providing a gatekeeper for code changes to master branch and streamlining testing efforts for releases</li>
+            </ul>
+            <div class="job-sub-title">Infrastructure Automation</div>
+            <ul class="job-bullets">
+              <li>Built tooling to automate creation of Kubernetes clusters in various cloud providers using Docker containers</li>
+              <li>Built and maintained automation to create product demo environments used by the sales team during customer engagements</li>
+              <li>Managed private Docker repository used by customers to deploy StackRox</li>
+            </ul>
+            <div class="job-sub-title">Release Management</div>
+            <ul class="job-bullets">
+              <li>Managed releases on a biweekly cadence aligned with sprint boundaries</li>
+              <li>Built release checklists for both development and testing/validation of releases</li>
+              <li>Drove engineering coordination with documentation team to produce high-quality customer-facing documentation</li>
+              <li>Reviewed and gave final approval on fixes/changes needed for release branches prior to final cut of GA images</li>
+              <li>Maintained patch releases and coordinated timing based on critical mass of bug fixes and impact to existing customers</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Clari -->
+      <div class="timeline-item">
+        <div class="job-card">
+          <div class="job-header">
+            <div>
+              <div class="job-title">Engineering Manager, Product Quality &amp; Release</div>
+              <div class="job-company">Clari</div>
+              <div class="job-location">Sunnyvale, CA</div>
+            </div>
+            <div class="job-dates">Sep 2014 – Dec 2017</div>
+          </div>
+          <p class="job-description">
+            Clari is a sales analytics software service powered by artificial intelligence,
+            providing forecast accuracy and visibility across the entire sales organization.
+          </p>
+          <ul class="job-bullets">
+            <li>Built backend REST API automation framework in Java used for regression testing across the full product feature set</li>
+            <li>Guided QA team in building a Selenium-based UI automation framework written in Python to regress the web UI</li>
+            <li>Grew test automation coverage from ~30 backend tests to 800+ backend/UI tests</li>
+            <li>Pushed QA automated test integration into the build process as a gate for product deployments at all levels of development</li>
+            <li>Coordinated production releases, including go/no-go decisions, schedules, and customer hot-fix approvals</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Clearwell Systems -->
+      <div class="timeline-item">
+        <div class="job-card">
+          <div class="job-header">
+            <div>
+              <div class="job-title">Senior QA Manager</div>
+              <div class="job-company">Clearwell Systems (acquired by Symantec)</div>
+              <div class="job-location">Mountain View, CA</div>
+            </div>
+            <div class="job-dates">Apr 2010 – Sep 2014</div>
+          </div>
+          <p class="job-description">
+            Clearwell Systems is the industry leader in E-Discovery solutions, providing
+            powerful collection, indexing, search, and review capabilities for corporations,
+            government agencies, and legal service providers.
+          </p>
+          <ul class="job-bullets">
+            <li>Resource management, project planning, test schedule creation, and maintaining high quality standards under constant team demands</li>
+            <li>Provided Agile training and guidance across the engineering organization as Scrum Master</li>
+            <li>Prioritized automation initiatives to provide better functional and regression test coverage</li>
+            <li>Ran functional, performance, stress, upgrade, and system integration testing</li>
+            <li>Built close relationship with Customer Support to keep a pulse on customer pain points and support trends</li>
+            <li>Provided hooks and APIs for Java- and PERL-based test automation frameworks for each feature in development</li>
+            <li>Implemented RESTAssured testing libraries for automated web service testing</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Veritas Software -->
+      <div class="timeline-item">
+        <div class="job-card">
+          <div class="job-header">
+            <div>
+              <div class="job-title">Senior QA Engineer</div>
+              <div class="job-company">Veritas Software (acquired by Symantec)</div>
+              <div class="job-location">Mountain View, CA</div>
+            </div>
+            <div class="job-dates">Oct 2003 – Mar 2010</div>
+          </div>
+          <p class="job-description">
+            Veritas Software specialized in storage management and high availability software,
+            including Veritas Cluster Server (VCS) and Veritas Volume Manager (VM).
+          </p>
+          <ul class="job-bullets">
+            <li>Scheduled and planned VPI and VCS QA activities for Mountain View Campus</li>
+            <li>Created Test Plans, Test Schedules, and Test Reports for the Veritas Product Installer</li>
+            <li>Primary QA engineer for the initial launch of the VCS One Policy Master for Windows</li>
+            <li>Created and maintained automated testing harness for the VCSOne Policy Master and Veritas Product Installer</li>
+            <li>Drove improvements to build creation and smoke testing processes</li>
+            <li>Created automated test cases and suites using QuickTest Pro, AutoIT, and in-house scripting languages</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <p class="section-label">// skills</p>
+    <h2>Technical Expertise</h2>
+    <div class="section-divider"></div>
+    <div class="skills-grid">
+
+      <div class="skill-card">
+        <div class="skill-category">Programming Languages</div>
+        <div class="skill-tags">
+          <span class="tag">Java</span>
+          <span class="tag">Groovy</span>
+          <span class="tag">Python</span>
+          <span class="tag">Go</span>
+          <span class="tag">PERL</span>
+          <span class="tag">Shell Scripting</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-category">Testing Tools &amp; Libraries</div>
+        <div class="skill-tags">
+          <span class="tag">Spock</span>
+          <span class="tag">TestNG</span>
+          <span class="tag">RESTassured</span>
+          <span class="tag">Gson</span>
+          <span class="tag">Selenium</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-category">Cloud Providers</div>
+        <div class="skill-tags">
+          <span class="tag">GKE</span>
+          <span class="tag">AWS</span>
+          <span class="tag">Azure</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-category">CI / Build Systems</div>
+        <div class="skill-tags">
+          <span class="tag">CircleCI</span>
+          <span class="tag">Jenkins</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-category">Containers &amp; Orchestration</div>
+        <div class="skill-tags">
+          <span class="tag">Kubernetes</span>
+          <span class="tag">Docker</span>
+          <span class="tag">Helm</span>
+          <span class="tag">Terraform</span>
+          <span class="tag">KOPS</span>
+          <span class="tag">GKE</span>
+          <span class="tag">AKS</span>
+          <span class="tag">EKS</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-category">Software Testing</div>
+        <div class="skill-tags">
+          <span class="tag">White-box</span>
+          <span class="tag">Black-box</span>
+          <span class="tag">Functional</span>
+          <span class="tag">Performance</span>
+          <span class="tag">Stress</span>
+          <span class="tag">Integration</span>
+          <span class="tag">Exploratory</span>
+          <span class="tag">Unit</span>
+          <span class="tag">Usability</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-category">Engineering Management</div>
+        <div class="skill-tags">
+          <span class="tag">Coaching</span>
+          <span class="tag">Motivation</span>
+          <span class="tag">Career Development</span>
+          <span class="tag">Performance Mgmt</span>
+          <span class="tag">Project Planning</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-category">Source Control &amp; Deployment</div>
+        <div class="skill-tags">
+          <span class="tag">Git</span>
+          <span class="tag">CVS</span>
+          <span class="tag">Cloud SaaS</span>
+          <span class="tag">On-prem</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <p class="section-label">// education</p>
+    <h2>Education</h2>
+    <div class="section-divider"></div>
+    <div class="edu-card">
+      <div>
+        <div class="edu-degree">Bachelor of Science in Computer Science</div>
+        <div class="edu-school">San José State University</div>
+        <div class="edu-location">San Jose, CA</div>
+      </div>
+      <div class="edu-date">December 2001</div>
+    </div>
+  </section>
+
+  <!-- VOLUNTEER -->
+  <section id="volunteer">
+    <p class="section-label">// volunteer</p>
+    <h2>Giving Back</h2>
+    <div class="section-divider"></div>
+    <div class="volunteer-grid">
+      <div class="volunteer-card">
+        <div class="volunteer-org">Sacred Heart Community Service</div>
+        <div class="volunteer-cause">Poverty Alleviation</div>
+      </div>
+      <div class="volunteer-card">
+        <div class="volunteer-org">Save Our Shores</div>
+        <div class="volunteer-cause">Environment</div>
+      </div>
+      <div class="volunteer-card">
+        <div class="volunteer-org">Habitat for Humanity Greater San Francisco</div>
+        <div class="volunteer-cause">Community Housing</div>
+      </div>
+      <div class="volunteer-card">
+        <div class="volunteer-org">Second Harvest Food Bank</div>
+        <div class="volunteer-cause">Poverty Alleviation</div>
+      </div>
+      <div class="volunteer-card">
+        <div class="volunteer-org">ALS Therapy Development Institute</div>
+        <div class="volunteer-cause">Health</div>
+      </div>
+      <div class="volunteer-card">
+        <div class="volunteer-org">ASPCA</div>
+        <div class="volunteer-cause">Animal Welfare</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>
+      Kevin J. Wajdowicz &mdash;
+      <a href="mailto:k.wajdowicz@gmail.com">k.wajdowicz@gmail.com</a> &mdash;
+      <a href="https://www.linkedin.com/in/kwajdowicz/" target="_blank" rel="noopener">LinkedIn</a>
+    </p>
+    <p style="margin-top:0.5rem; font-size:0.75rem; opacity:0.5;">Santa Cruz, CA &mdash; 831.278.2321</p>
+  </footer>
+
+  <script>
+    // Active nav link on scroll
+    const sections = document.querySelectorAll('section[id], div[id="hero"]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(link => {
+            link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id);
+          });
+        }
+      });
+    }, { rootMargin: '-30% 0px -60% 0px' });
+
+    sections.forEach(s => observer.observe(s));
+  </script>
+
+</body>
+</html>
